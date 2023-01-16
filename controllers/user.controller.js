@@ -3,16 +3,10 @@
 //vsCode no me muestra las propiedades ya que no sabe de que tipo es.
 
 const { response, request } = require('express')
+const bcrypt = require('bcryptjs');
+const { body, validationResult } = require('express-validator');
 
-
-
-
-
-
-
-
-
-
+const Usuario = require('../models/usuario')
 
 const usuarioGet = (req = request, res = response) => {
 
@@ -27,13 +21,31 @@ const usuarioGet = (req = request, res = response) => {
     })
 }
 
-const usuarioPost = (req, res) => {
-    const { nombre, edad } = req.body
+const usuarioPost = async (req, res = response) => {
 
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json(errors);
+    }
+
+    const { nombre, correo, password, rol } = req.body
+    const usuario = new Usuario({ nombre, correo, password, rol });
+    //Verificar si el correo existe
+    const existeEmail = await Usuario.findOne({ correo })
+
+    if (existeEmail) {
+        return res.status(400).json({
+            msj: "Ese correo ya esta registrado"
+        })
+    }
+
+    // Encriptar la contraseña
+    const salt = bcrypt.genSaltSync()
+    usuario.password = await bcrypt.hashSync(password, salt);
+
+    await usuario.save()
     res.json({
-        msj: 'New user created from controller',
-        nombre,
-        edad
+        usuario
     })
 }
 
