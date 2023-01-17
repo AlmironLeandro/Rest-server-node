@@ -51,7 +51,7 @@ const usuarioPost = async (req, res = response) => {
 
 const usuarioPatch = (req, res) => {
     res.json({
-        msj: 'Ni puta idea todavia lo que hace el metodo http patch'
+        msj: 'Patch from controller'
     })
 }
 
