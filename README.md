@@ -4,13 +4,17 @@
 
 ## Create user
 
-- ***POST*** http://localhost:8081/api/usuarios
-`
-<style>
-red { color: red }
-yellow { color: yellow }
-</style>
+#### Creating user
 
-<red> red color markdown text</red>
-<yellow> red color markdown text</yellow>
-`
+<details>
+ <summary><code>POST</code> <code><b>/</b></code> <code>http://localhost:8081/api/usuarios</code></summary>
+
+##### Parameters
+
+>{
+    "nombre":"Pepe Almirón",
+    "edad": 24,
+    "correo": "Leandroealmiron@hotmail.com",
+    "password":"222222",
+    "rol":"ADMIN_ROLE"
+>}
