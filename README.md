@@ -11,10 +11,10 @@
 
 ##### Parameters
 
->{
+{
     "nombre":"Pepe Almirón",
     "edad": 24,
     "correo": "Leandroealmiron@hotmail.com",
     "password":"222222",
     "rol":"ADMIN_ROLE"
->}
+}
