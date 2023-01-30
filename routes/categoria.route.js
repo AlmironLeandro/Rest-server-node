@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { validarJWT, validarCampos } = require('../middlewares');
+const { validarJWT, validarCampos, esAdminRol, tieneRol } = require('../middlewares');
 const { check } = require('express-validator');
 const { crearCategoria, obtenerCategorias, obtenerUnaCategoria, actualizarCategoria, borrarCategoria } = require('../controllers/categoria.controller');
 const { existeCategoria } = require('../helpers/db-validators');
@@ -48,6 +48,7 @@ router.delete('/:id',
         validarJWT,
         check('id').isMongoId(),
         check('id').custom(existeCategoria),
+        tieneRol('ADMIN_ROLE'),
         validarCampos
     ]
     , borrarCategoria)
